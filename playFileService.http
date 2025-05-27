@@ -1,0 +1,6 @@
+@playFileService_HostAddress = http://localhost:5189
+
+GET {{playFileService_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
