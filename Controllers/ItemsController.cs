@@ -39,5 +39,31 @@ namespace playFileService.Controllers
             return newItem;
                 /*CreatedAtAction(nameof(GetItem), new { id = newItem.Id }, newItem);*/
         }
+
+        [HttpPut("{id}")]
+        public async Task <IActionResult> UpdateItem(Guid id, UpdateItemDto updateItemDto)
+        {
+            var existingItem = items.Where(i => i.Id == id).SingleOrDefault();
+            if (existingItem == null)
+            {
+                return NotFound();
+            }
+            var index = items.FindIndex(existingItem => existingItem.Id == id);
+            items[index] = existingItem;
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            var existingItem = items.FindIndex(i => i.Id == id);
+            if (existingItem == null)
+            {
+                return NotFound();
+            }
+            items.RemoveAt(existingItem);
+            return NoContent();
+        }
+
     }
 }
